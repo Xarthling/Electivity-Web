@@ -1,28 +1,21 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyViewController;
+use App\Http\Controllers\AuthController;
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Route::get('/Dashboard', [MyViewController::class, 'Dashboard'])->middleware('auth')->name('Dashboard');
+Route::get('/Dashboard', [MyViewController::class, 'Dashboard'])->name('Dashboard');
 
-Route::get('/', function () {
-    return view('/view3');
-});
-
-Route::get('/view1', [MyViewController::class, 'view1']);
-Route::get('/view2', [MyViewController::class, 'view2'])->name('signup');
-Route::get('/view2', [MyViewController::class, 'view2'])->name('Login');
-Route::get('/view3', [MyViewController::class, 'view3'])->name('index');
-Route::get('/view4', [MyViewController::class, 'view4']);
-Route::get('/view5', [MyViewController::class, 'view5'])->name('profile');;
-Route::get('/view6', [MyViewController::class, 'view6']);
+// Route::get('/Dashboard', [MyViewController::class, 'Dashboard'])->name('Dashboard'); 
+// Route::get('/view3', [MyViewController::class, 'view3'])->name('login'); 
+Route::get('/index', [MyViewController::class, 'index'])->name('index'); 
+Route::get('/view4', [MyViewController::class, 'view4']); 
+Route::get('/view5', [MyViewController::class, 'view5'])->name('profile'); 
+Route::get('/view6', [MyViewController::class, 'view6']); 

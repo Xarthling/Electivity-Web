@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Login and Signup Form </title>
 
-    <link rel="stylesheet" href="css/style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
@@ -163,10 +162,11 @@
 
         .logo {
             width: 15vw;
-            
+
             border-radius: 10px;
         }
-        .head{
+
+        .head {
             flex-direction: column;
             display: flex;
             align-items: center;
@@ -217,40 +217,90 @@
         </div>
 
 
+
         <div class="form signup">
-        <div class="head"> <img class="logo" src="elogo.png" alt="Logo" />
+            <div class="head">
+                <img class="logo" src="elogo.png" alt="Logo">
             </div>
             <div class="form-content">
                 <header>Signup</header>
-                <form action="signup">
+                <form id="signupForm">
                     <div class="field input-field">
-                        <input type="text" placeholder="Name" class="input">
+                        <input type="email" id="email" placeholder="Email" class="input" required>
                     </div>
                     <div class="field input-field">
-                        <input type="email" placeholder="Email" class="input">
+                        <input type="text" id="username" placeholder="Username" class="input" required>
                     </div>
-
                     <div class="field input-field">
-                        <input type="password" placeholder="Create password" class="password">
+                        <input type="password" id="password" placeholder="Password" class="password" required>
                     </div>
-
                     <div class="field input-field">
-                        <input type="password" placeholder="Confirm password" class="password">
+                        <input type="password" id="confirmPassword" placeholder="Confirm password" class="password" required>
                         <i class='bx bx-hide eye-icon'></i>
                     </div>
-
                     <div class="field button-field">
-                        <button>Signup</button>
+                        <button type="submit">Signup</button>
                     </div>
                 </form>
-
                 <div class="form-link">
                     <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
                 </div>
             </div>
         </div>
     </section>
+    <!-- //////////////////////////////////////// Sign Up //////////////////////////////////////// -->
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            // Get form data
+            const email = document.getElementById("email").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            // Prepare data for API request
+            const formData = {
+                email: email,
+                username: username,
+                password: password,
+                confirmPassword: confirmPassword
+            };
+
+            // Make API request
+            fetch("https://known-rodent-certain.ngrok-free.app/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept:"application/json"
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle API response
+                    console.log(data); // You can perform further actions based on the response
+                    alert("Signup successful!"); // Example alert
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again later."); // Example alert
+                });
+        });
+    </script>
+    <!-- ///////////////////////////////////////// Flip ///////////////////////////////////////// -->
     <script>
         const forms = document.querySelector(".forms"),
             pwShowHide = document.querySelectorAll(".eye-icon"),

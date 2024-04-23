@@ -10,126 +10,182 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <style>
-        .container1 {
-            max-width: 30vw;
-            height: calc(100% - 100px);
-            margin: 1vw auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    
+    
+    
+        .container {
+          height: 100vh;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #fafafc;
+          column-gap: 30px;
         }
-
-        .header {
-            background-color: #ffffff;
-            color: black;
-            padding: 1vw;
-        }
-
+    
         .form {
-            padding: 1vw;
-            height: calc(100% - 100px);
-            justify-content: space-evenly;
-            display: flex;
-            flex-direction: column;
+    
+          position: absolute;
+          max-width: 30vw;
+          width: 100%;
+          padding: 2vw;
+          border-radius: 6px;
+          background: #FFF;
+          border: 1px solid #e3e3e3;
+    
         }
-
-
-
-        .form-group label {
-            font-weight: bold;
+    
+        .form.signup {
+          opacity: 0;
+          pointer-events: none;
         }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="password"] {
-            width: 90%;
-            padding: 1vw;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+    
+        .forms.show-signup .form.signup {
+          opacity: 1;
+          pointer-events: auto;
         }
-
-        .form-group input[type="file"] {
-            margin-top: 5px;
+    
+        .forms.show-signup .form.login {
+          opacity: 0;
+          pointer-events: none;
         }
-
-        .btn {
-            padding: 1rem 1rem;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+    
+        header {
+          font-size: 28px;
+          font-weight: 600;
+          color: #232836;
+          text-align: center;
         }
-
-        .btn:hover {
-            background-color: #2980b9;
+    
+        form {
+          margin-top: 30px;
         }
-
+    
+        .form .field {
+          position: relative;
+          height: 50px;
+          width: 90%;
+          margin-top: 20px;
+          border-radius: 6px;
+        }
+    
+        .field input,
+        .field button {
+          height: 100%;
+          width: 100%;
+          border: none;
+          font-size: 16px;
+          font-weight: 400;
+          border-radius: 6px;
+        }
+    
+        .field input {
+          outline: none;
+          padding: 0 15px;
+          border: 1px solid#CACACA;
+        }
+    
+        .field input:focus {
+          border-bottom-width: 2px;
+        }
+    
+        .eye-icon {
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          font-size: 18px;
+          color: #8b8b8b;
+          cursor: pointer;
+          padding: 5px;
+        }
+    
+        .field button {
+          color: #fff;
+          background-color: #0fafff;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+    
+        .field button:hover {
+          background-color: #016dcb;
+        }
+    
+        .form-link {
+          text-align: center;
+          margin-top: 10px;
+        }
+    
+        .form-link span,
+        .form-link a {
+          font-size: 14px;
+          font-weight: 400;
+          color: #232836;
+        }
+    
+        .form a {
+          color: #0171d3;
+          text-decoration: none;
+        }
+    
+        .form-content a:hover {
+          text-decoration: underline;
+        }
+    
+        .line {
+          position: relative;
+          height: 1px;
+          width: 100%;
+          margin: 36px 0;
+          background-color: #d4d4d4;
+        }
+    
+        .line::before {
+          content: 'Or';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #FFF;
+          color: #8b8b8b;
+          padding: 0 15px;
+        }
+    
+        .logo {
+          width: 15vw;
+    
+          border-radius: 10px;
+        }
+    
+        .head {
+          flex-direction: column;
+          display: flex;
+          align-items: center;
+        }
+    
         #imagePreview {
-            display: block;
-            max-width: 35%;
-            margin: 0 auto;
-            border-radius: 50%;
-            clip-path: circle();
+          display: block;
+          max-width: 35%;
+          margin: 0 auto;
+          border-radius: 50%;
+          clip-path: circle();
         }
-
-        .upload {
-            margin: 0 0 0 25%;
-        }
-
-        @media screen and (max-width: 1200px) {
-            .container1 {
-                max-width: 100%;
-                height: calc(100% - 200px);
-
-            }
-
-            .btn {
-                padding: .5rem .5rem;
-
-            }
-
-            .form-group {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .form-group input[type="text"],
-            .form-group input[type="email"],
-            .form-group input[type="password"] {
-                width: 90%;
-                padding: .5vw;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-        }
-
-        @media only screen and (min-width: 1200px) and (max-width: 1599px) {
-            .form {
-                height: calc(100% - 150px);
-
-            }
-
-        }
-
+    
         @media screen and (max-width: 600px) {
-            body {
-                overflow: hidden;
-                font-size: 10px;
-            }
-
-          
-
-
-            .container1 {
-                max-width: 90%;
-                padding: 2vw;
-            }
-
+          .form {
+            max-width: 80vw;
+    
+          }
+    
+          .container {
+            height: 90vh;
+    
+          }
         }
-    </style>
+      </style>
+    
+      <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -138,43 +194,40 @@
         @include('layout.topbar')
 
 
-        <div class="container1">
-            <div class="header">
-                <h2>User Profile</h2>
+        <section class="container forms">
+            <div class="form login">
+              <div class="head">
+                <img src="sample.jpg" alt="Profile Image Preview" id="imagePreview">
+      
+              </div>
+              <div class="form-content">
+                <header>Profile</header>
+                <form action="#">
+                  <div class="field input-field">
+                    <input type="email" value="{{ $user->email }}" class="input">
+                  </div>
+                  <div class="field input-field">
+                    <input type="text" value="{{ $user->username }}" class="input">
+                  </div>
+                  <div class="field input-field">
+                    <input type="text" placeholder="User IP" class="input">
+                  </div>
+                  <div class="field input-field">
+                    <input type="text" placeholder="Location" class="input">
+                  </div>
+                  <div class="field input-field">
+                    <input type="password" id="password" value="{{ $user->password }}" readonly>
+                    <i class='bx bx-hide eye-icon'></i>
+
+                </div>
+      
+                  <div class="field button-field">
+                    <button>Login</button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <form class="form">
-                <div class="form-group">
-                    <img src="sample.jpg" alt="Profile Image Preview" id="imagePreview">
-                    <input class="upload" type="file" id="profileImage" name="profileImage">
-                </div>
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" value="JohnDoe">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="john.doe@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location" value="New York">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <div style="position: relative;">
-                        <input type="password" id="password" name="password" value="********">
-                        <button type="button" id="previewPassword" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="userIP">User IP:</label>
-                    <input type="text" id="userIP" name="userIP" readonly value="192.168.1.1">
-                </div>
-                <button type="submit" class="btn">Save</button>
-            </form>
-        </div>
+          </section>
 
 
     </div>

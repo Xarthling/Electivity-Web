@@ -439,7 +439,8 @@ input#search-bar:focus {
     transition: transform 0.3s ease-in-out;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    
 }
 
 .gg {
