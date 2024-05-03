@@ -3,7 +3,12 @@
     padding: 0px;
     scroll-behavior: smooth;
 }
+.test{
+    height: 100px;
+    width: 100px;
+    border: 1px solid #d41d1d;
 
+}
 body {
     margin: 0;
     padding: 0;
@@ -91,6 +96,7 @@ a.bottom-svg {
     flex-direction: column;
     padding: 0 1rem 0 1rem;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 
@@ -109,6 +115,9 @@ a.bottom-svg {
 .user-controls div{
     margin: 0 .5rem 0 .5rem;
 }
+
+
+/* /////////////////////////// Dark-Mode  /////////////////////// */
 #dark-light-toggle {
     display: flex;
     align-items: center;
@@ -133,6 +142,60 @@ body:not(.dark-mode) #dark-light-toggle .sun-icon {
     display: none;
     background-color: #fff;
 }
+
+
+body.dark-mode #top-nav {
+    background-color: #101010;
+    color: #fff;
+    border: 1px solid #e3e3e32b;
+
+}
+
+.dark-mode .main-content {
+    background-color: #000000;
+    color: #fff;
+}
+
+.dark-mode .card {
+    background-color: #202020;
+    color: #fff;
+    border: 1px solid #e3e3e32b;
+}
+
+.dark-mode #main-container {
+    background-color: #000000;
+    color: #ffffff;
+
+}
+
+.dark-mode .ct .headings {
+    color: #ffffff;
+
+}
+
+.dark-mode .sub-item {
+    color: #ffffff;
+    background-color: #101010;
+    border: 1px solid #e3e3e32b;
+
+}
+.dark-mode .sub-item-info span {
+    color: #ffffff;
+}
+.dark-mode .clock-container{
+    border: 1px solid #e3e3e348;
+}
+.dark-mode .add-branch-btn {
+   
+    background-color: #101010;
+    border: 1px solid #e3e3e348;
+    color: #ffffff;
+} 
+.dark-mode .new {
+    background-color: #101010;
+    border: 1px solid #e3e3e348;
+}   
+
 
 #top-nav img {
     margin-right: 0.625rem;
@@ -160,14 +223,16 @@ body:not(.dark-mode) #dark-light-toggle .sun-icon {
 .user-info p {
     font-size: 1rem;
 }
-
+.bell-icon {
+    padding-top:.5rem ;
+}
 .user-controls .bell-icon svg path {
 
     fill: #fff700;
 }
 
 .user-controls .bell-icon svg:hover {
-    filter: drop-shadow(0 0 10px #fff200);
+    filter: drop-shadow(0 0 20px #fff200);
 
 }
 
@@ -193,32 +258,6 @@ body:not(.dark-mode) #dark-light-toggle .sun-icon {
 
 
 
-body.dark-mode #top-nav {
-    background-color: #101010;
-    color: #fff;
-}
-
-.dark-mode .main-content {
-    background-color: #000000;
-    color: #fff;
-}
-
-.dark-mode .card {
-    background-color: #202020;
-    color: #fff;
-}
-
-.dark-mode #main-container {
-    background-color: #202020;
-
-    color: #ffffff;
-
-}
-
-.dark-mode .ct .headings {
-    color: #ffffff;
-
-}
 
 
 
@@ -465,9 +504,12 @@ input#search-bar:focus {
 
 /* ///////////////////////////// Graph ////////////////////////////////////////  */
 
-
+.toggle{
+    width: 5vw;
+    
+}
 .new {
-    margin: 3%;
+    margin: 3% 0 0 1% ;
     width: 50%;
     /* height: calc(80% - 100px); */
     font-weight: 600;
@@ -550,7 +592,7 @@ input#search-bar:focus {
 }
 
 .options-list::-webkit-scrollbar-thumb {
-    background-color: #00a8ff;
+    background-color: #e100ff;
 }
 
 .options-list.active {
@@ -579,26 +621,9 @@ input#search-bar:focus {
     font-size: 2em;
 }
 
-
-
-/* /////?//////////////////////////////// GUAGES /////////////////////////////////////////////////////////////////// */
-
-
-
-
-@media all and (max-width: 500px) {
-    .card-list {
-        flex-direction: column;
-    }
-
-    body {
-        overflow-x: hidden;
-    }
-}
-
 @media only screen and (max-width: 768px) {
     #sidebar {
-        width: 100%;
+        max-width: 20%;
     }
 
     .search-container {
@@ -612,7 +637,6 @@ input#search-bar:focus {
         font-size: 10px;
         overflow-x: hidden;
     }
-
 }
 
 @media screen and (max-width: 600px) {
@@ -624,15 +648,12 @@ input#search-bar:focus {
     .clock-container {
         display: none;
     }
-    #main-container {
-       
+    /* #main-container {
         padding: 0 .5rem 0 .5rem;
-       
-    }
-
+    } */
 
     #sidebar {
-        max-width: 100%;
+        max-width: 20%;
     }
 
     #logo {
@@ -642,16 +663,16 @@ input#search-bar:focus {
     #nav-options {
         max-width: 100%;
     }
+    .user-controls{
+        width: 100%;
+        justify-content: space-around;
 
+    }
     #nav-options a {
         margin: .3rem 0 .3rem 0;
         padding: 0.3rem;
         border-radius: 20px;
     }
-    /* #nav-options a svg {
-        width: 5vw;
-        height: 5vh; 
-    } */
 
     #top-nav {
         padding: .3rem;
@@ -661,9 +682,13 @@ input#search-bar:focus {
         width: 1.5rem;
         height: 1.5rem;
     }
+    .card-list {
+        flex-direction: column;
+    }
 
     .search-container {
         max-width: 80%;
+        display: none;
         
     }
 
@@ -675,13 +700,11 @@ input#search-bar:focus {
         margin: 1rem 0 .5rem 0;
         min-width: 20%;
         margin-right: 2vw;
-
-    
     }
 
     .card {
         width: 100%;
-        height: 100vh;
+        height: 80vh;
     }
 
     .ct .headings {
@@ -690,6 +713,10 @@ input#search-bar:focus {
 
     .sub-item {
         padding: 0px;
+        min-height: 5vh;
+    }
+    .sub-items div {
+        margin-right:10px;
     }
 
     .sub-item-info {
@@ -720,7 +747,7 @@ input#search-bar:focus {
     }
 
     .ggs {
-        width: 20vw;
+        width: 18vw;
         /* /* max-width: 20%; */
         min-width: 10%;
         height: calc(20vh - 100px);

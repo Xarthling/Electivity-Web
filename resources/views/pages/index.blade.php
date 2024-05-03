@@ -29,11 +29,11 @@
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact Us</a></li>
             @if (Session::has('user'))
-                <li class="active"><a class="active" href="{{ route('Dashboard') }}">Dashboard</a></li>
-            @else
-                {{-- <li ><a  href="{{ route('login') }}">Login</a></li> --}}
-                <li class="active"><a class="active" href="{{ route('login') }}">Signup/Login</a></li>
-            @endif
+            <li class="active"><a class="active" href="{{ route('Dashboard') }}">Dashboard</a></li>
+        @else
+            <li class="active"><a class="active" href="{{ route('login') }}">Signup/Login</a></li>
+        @endif
+        
         </ul>
     </nav>
 
@@ -49,14 +49,14 @@
 
 
             </div>
-            <img src="blue.png" alt="Home Mockup">
+            <img style="width: 20vw;" src="blue.png" alt="Home Mockup">
         </div>
 
     </section>
     <section id="about" style="background: linear-gradient(to bottom right, #007bff,  #9dd9f6);">
         <h2 class="abouttext" style="text-align: center;">About</h2>
         <div class="content">
-            <img src="webapp.png" alt="About Mockup">
+            <img style="width: 25vw;" src="webapp.png" alt="About Mockup">
 
             <div class="txt">
                 <div>
@@ -86,10 +86,9 @@
 
     </section>
 
-    <!-- <section id="features">
+    <section id="features">
         <h2 style="text-align: center;">Features</h2>
-        <p>"Effortlessly manage your home's lighting, temperature, security, appliances, and more with our smart home
-            system's intuitive remote control and automation features."</p>
+        <p>"Manage your home's lighting, temperature, security, appliances, and more with Your smart home "</p>
         <div class="feature-content">
             <div class="feature-list">
                 <ul>
@@ -102,13 +101,13 @@
 
             <div class="feature-list">
                 <ul>
-                    <li>control and optimizing energy</li>
+                    <li >control and optimizing energy</li>
                     <li> voice control integration</li>
                     <li> remote water supply shut-off</li>
                 </ul>
             </div>
         </div>
-    </section> -->
+    </section> 
 
     <section id="our-team">
         <h2 style="text-align: center;">Our Team</h2>

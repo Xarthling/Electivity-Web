@@ -182,9 +182,9 @@
             margin-bottom: 2vw;
         }
 
-        section img {
-            width: 30vh;
-        }
+        /* section img {
+            max-width: 30vh;
+        } */
 
         footer {
             background-color: #080808;
@@ -341,7 +341,7 @@
             flex-direction: row;
             flex-wrap: nowrap;
         }
-
+     
 
         /* ///////////////////////////////////// Contact US /////////////////////////////////////// */
 
@@ -488,7 +488,10 @@
                 flex-direction: column;
                 list-style-type: none;
             }
-
+            .feature-list li {
+                font-size: .5rem;
+              
+            }
             nav ul.show {
                 transition: all 0.2s ease;
                 width: 40vw;
