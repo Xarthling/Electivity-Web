@@ -1,12 +1,13 @@
 <div id="top-nav">
             <div class="search-container">
-                <input type="text" id="search-bar" class="hide-placeholder"  placeholder="Welcome {{ $userName}} ! how can I help you with today?" />
-                <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <h3>Hi {{ $userName}} !</h3><img class="search-icon" src="icons/hand.png" alt="Greetings">
+                {{-- <input type="text" id="search-bar" class="hide-placeholder"  placeholder="hi {{ $userName}} ! how can I help you with today?" /> --}}
+                {{-- <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z"
                         stroke="#0FAFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                </svg> --}}
             </div>
 
 
@@ -17,7 +18,7 @@
 
                    
                 </div>
-                <div class="bell-icon">
+                {{-- <div class="bell-icon">
                     <svg  width="30" height="35" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g filter="url(#filter0_d_30789_32293)">
                             <path
@@ -43,7 +44,7 @@
                     </svg>
 
 
-                </div>
+                </div> --}}
                 <button id="dark-light-toggle">
                     <img class="moon-icon" src="icons/moon-regular.svg" alt="Moon" />
                     <img class="sun-icon" src="icons/sun-solid.svg" alt="Sun" />

@@ -14,6 +14,8 @@ Route::post('/register', [AuthController::class, 'register']);
 // Route::get('/Dashboard', [MyViewController::class, 'Dashboard'])->middleware('auth')->name('Dashboard');
 Route::get('/Dashboard', [MyViewController::class, 'Dashboard'])->name('Dashboard');
 Route::post('/update-switch-states', [MyViewController::class, 'updateSwitchStates'])->name('update.switch.states');
+Route::post('/get-week-data', [MyViewController::class, 'getdata'])->name('get-week-data');
+
 
 // Route::get('/Dashboard', [MyViewController::class, 'Dashboard'])->name('Dashboard'); 
 // Route::get('/view3', [MyViewController::class, 'view3'])->name('login'); 

@@ -11,22 +11,26 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
 </head>
 
 <body>
     @include('layout.sidebar')
+
     <div id="main-container">
+
         @include('layout.topbar')
+
         <div class="main-content">
 
             <div class="topdiv">
                 <div class="rooms">
                     @foreach ($rooms as $room)
-                        <button class="add-branch-btn{{ $loop->first ? ' active' : '' }}"
-                            data-boardid="{{ $room['boardid'] }}" data-temp="{{ $room['temp'] }}"
-                            data-moisture="{{ $room['moist'] }}"
-                            data-lumn="{{ $room['lumn'] }}">{{ $room['roomname'] }}</button>
+                    <button class="add-branch-btn{{ $loop->first ? ' active' : '' }}"
+                        data-boardid="{{ $room['boardid'] }}" data-temp="{{ $room['temp'] }}"
+                        data-moisture="{{ $room['moist'] }}" data-lumn="{{ $room['lumn'] }}">{{ $room['roomname']
+                        }}</button>
                     @endforeach
                 </div>
 
@@ -43,25 +47,25 @@
                     </div>
                     <div class="sub-items">
                         @foreach ($switches as $boardSwitches)
-                            @if ($boardSwitches->isNotEmpty())
-                                <div id="switches-container-{{ $boardSwitches->first()['boardId'] }}"
-                                    class="switches-container" style="display: none;">
-                                    @foreach ($boardSwitches as $switch)
-                                        <div class="sub-item">
-                                            <div class="sub-item-info">
-                                                <h3>{{ $switch['name'] }}</h3>
-                                                <span>{{ $switch['state'] }}</span>
-                                            </div>
-
-                                            @if ($switch['state'] === 'On')
-                                                <img class="toggle" src="icons/btnon.svg" alt="About Mockup">
-                                            @else
-                                                <img class="toggle" src="icons/btnoff.svg" alt="About Mockup">
-                                            @endif
-                                        </div>
-                                    @endforeach
+                        @if ($boardSwitches->isNotEmpty())
+                        <div id="switches-container-{{ $boardSwitches->first()['boardId'] }}" class="switches-container"
+                            style="display: none;">
+                            @foreach ($boardSwitches as $switch)
+                            <div class="sub-item">
+                                <div class="sub-item-info">
+                                    <h3>{{ $switch['name'] }}</h3>
+                                    <span>{{ $switch['state'] }}</span>
                                 </div>
-                            @endif
+
+                                @if ($switch['state'] === 'On')
+                                <img class="toggle" src="icons/btnon.svg" alt="About Mockup">
+                                @else
+                                <img class="toggle" src="icons/btnoff.svg" alt="About Mockup">
+                                @endif
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
                         @endforeach
 
                         <div class="no-switches-message" style="display: none;">
@@ -77,22 +81,21 @@
                     <div class="new">
                         <div class="graph">
                             <div class="select-menu">
-                                <label for="weekSelect">Select Week:</label>
+                                <!-- <label for="weekSelect">Select Span:</label> -->
                                 <select id="weekSelect">
-                                    <option value="1">Week 1</option>
-                                    <option value="2">Week 2</option>
-                                    <option value="3">Week 3</option>
-                                    <option value="4">Week 4</option>
+                                    <option value="1">24H</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Monthly</option>
+                                    <option value="4">Yearly</option>
                                 </select>
-                               
                             </div>
                             <h3>Week Usage </h3>
                             <canvas class="graphCanvas"></canvas>
                         </div>
-                        {{-- <div class="test"> </div> --}}
-
+                        {{-- <div class="test">
+                            <h1> To be ADDED </h1>
+                        </div> --}}
                     </div>
-
                 </div>
                 <div class="data">
                     <div class="guages">
@@ -117,140 +120,141 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            // Function to handle select change
-            $('#weekSelect').change(function() {
-                var selectedWeek = $(this).val();
-                // Call a function to update graph based on selected week
-                updateGraph(selectedWeek);
-            });
-
-            // Function to update the graph based on the selected week
-            function updateGraph(selectedWeek) {
-                // Example AJAX call to fetch data for the selected week
-                $.ajax({
-                    type: 'GET', // or 'POST' depending on your backend implementation
-                    url: '/get-week-data', // URL to fetch data for the selected week
-                    data: {
-                        week: selectedWeek
-                    },
-                    success: function(response) {
-                        // Update your graph with the received data
-                        // Example: If you're using Chart.js
-                        updateChart(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                        // Handle error
-                    }
-                });
-            }
-
-            // Function to update Chart.js chart
-            function updateChart(data) {
-                // Example code to update Chart.js chart with new data
-                // Assuming you have a variable named 'myChart' for your Chart.js instance
-                myChart.data.labels = data.labels;
-                myChart.data.datasets.forEach((dataset) => {
-                    dataset.data = data.values;
-                });
-                myChart.update();
-            }
-
-            // Call updateGraph function with default week when page loads
-            updateGraph(1); // You can change the default week as per your requirement
-        });
-    </script>
-
     <!-- /////////////////////////////////////// Dark Mode //////////////////////////////////////// -->
     <script src="{{ asset('dark-mode.js') }}"></script>
     <!-- //////////////////////////////////////// Graph //////////////////////////////////////// -->
     <script>
-        const ctx = document.getElementsByClassName('graphCanvas');
-        const data = {{ json_encode($graph) }};
-
-        const totalConsumption = {{ $total }};
-        console.log(totalConsumption);
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [{
-                    label: 'KWh Consumed',
-                    data: data,
-                    borderWidth: 1,
-                    tension: .3,
-                    backgroundColor: function(context) {
-                        const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, 400);
-                        gradient.addColorStop(0, 'rgba(0, 168, 255, 0.7)');
-                        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                        return gradient;
-                    },
-                    borderColor: '#00a8ff',
-                    borderRadius: {
-                        topLeft: 50,
-                        topRight: 50
-                    },
-                    fill: true
-                }]
-            },
-            options: {
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.parsed.y + ' kWh';
-                            }
-                        }
-                    },
-                    annotation: {
-                        annotations: {
-                            type: 'line',
-                            mode: 'horizontal',
-                            scaleID: 'y',
-                            value: totalConsumption,
-                            borderColor: 'red',
-                            borderWidth: 2,
-                            label: {
-                                enabled: true,
-                                content: 'Total Consumption: ' + totalConsumption + ' kWh',
-                                position: 'right',
-                                backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                font: {
-                                    size: 12
-                                },
-                                padding: 8
-                            }
-                        }
+        $(document).ready(function () {
+            let myChart; // Variable to store the Chart instance
+    
+            // Function to handle select change
+            $('#weekSelect').change(function () {
+                var selectedWeek = $(this).val();
+                // Call a function to update graph based on selected week
+                updateGraph(selectedWeek);
+            });
+    
+            // Function to update the graph based on the selected week
+            function updateGraph(selectedWeek) {
+                // Example AJAX call to fetch data for the selected week
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
+                });
+    
+                $.ajax({
+                    type: 'POST', 
+                    url: '/get-week-data', 
+                    data: {
+                        week: selectedWeek
                     },
-                    y: {
-                        grid: {
-                            display: false
-                        },
-                        beginAtZero: true
+                    success: function (response) {
+                        console.log(response);
+                        updateChart(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        console.log("success");
+                        // Handle error
                     }
-                },
-                layout: {
-                    padding: 10
-                }
+                });
             }
+    
+            // Function to update Chart.js chart
+            function updateChart(data) {
+                // If a Chart instance already exists, destroy it
+                if (myChart) {
+                    myChart.destroy();
+                }
+    
+                // Get the canvas element
+                const ctx = document.getElementsByClassName('graphCanvas')[0].getContext('2d');
+                const totalConsumption = data.totalConsumption; // Assuming you get total consumption from the response
+    
+                // Create a new Chart instance
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'KWh Consumed',
+                            data: data.values,
+                            borderWidth: 1,
+                            tension: .3,
+                            backgroundColor: function (context) {
+                                const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                                gradient.addColorStop(0, 'rgba(0, 168, 255, 0.7)');
+                                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                                return gradient;
+                            },
+                            borderColor: '#00a8ff',
+                            borderRadius: {
+                                topLeft: 50,
+                                topRight: 50
+                            },
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.dataset.label + ': ' + context.parsed.y + ' kWh';
+                                    }
+                                }
+                            },
+                            annotation: {
+                                annotations: {
+                                    type: 'line',
+                                    mode: 'horizontal',
+                                    scaleID: 'y',
+                                    value: totalConsumption,
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        enabled: true,
+                                        content: 'Total Consumption: ' + totalConsumption + ' kWh',
+                                        position: 'right',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                                        font: {
+                                            size: 12
+                                        },
+                                        padding: 8
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                beginAtZero: true
+                            }
+                        },
+                        layout: {
+                            padding: 10
+                        }
+                    }
+                });
+            }
+            updateGraph(1); // You can change the default week as per your requirement
         });
     </script>
+    
 
     <!-- /////////////////////////////////////// clock//////////////////////////////////////////// -->
     <script src="{{ asset('clock.js') }}"></script>
     <!-- {{-- /////////////////// Viewer //////////////////////// --}} -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Function to populate room details
             function populateRoomDetails(boardId) {
                 var temp = $('.add-branch-btn[data-boardid="' + boardId + '"]').data('temp');
@@ -292,11 +296,11 @@
                     data: {
                         boardId: activeBoardId
                     },
-                    success: function(response) {
+                    success: function (response) {
                         // Iterate over each switch in the response
-                        response.forEach(function(switchData, index) {
+                        response.forEach(function (switchData, index) {
                             // Find the corresponding switch element by name
-                            var switchElement = $('.sub-item-info').filter(function() {
+                            var switchElement = $('.sub-item-info').filter(function () {
                                 return $(this).find('h3').text() === switchData.name;
                             });
 
@@ -310,7 +314,7 @@
                             toggleImage.attr('alt', switchData.state === 'On' ? 'On' : 'Off');
                         });
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
                         // alert('Failed to fetch switch states. Please try again later.');
                     }
@@ -318,7 +322,7 @@
 
             }
 
-            $('.add-branch-btn').click(function() {
+            $('.add-branch-btn').click(function () {
                 $('.add-branch-btn').removeClass('active');
                 $(this).addClass('active');
 
@@ -329,7 +333,7 @@
                 populateRoomDetails(boardId);
             });
 
-            $(window).on('unload', function() {
+            $(window).on('unload', function () {
                 stopRefreshing();
             });
 

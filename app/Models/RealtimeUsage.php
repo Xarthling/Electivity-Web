@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Consumption extends Model
+class RealtimeUsage extends Model
 {
     protected $fillable = [
-        'date',
-        'consumption',
+        'timestamp', 'usage',
     ];
 }
